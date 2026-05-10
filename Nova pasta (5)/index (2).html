@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Adriana - Nossa Rainha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #ff4d6d;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg: #0a0a0c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1a1a2e, #0a0a0c);
+            color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--glass);
+            padding: 5px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active { display: block; }
+
+        /* --- ABA 1: FOTO ÚNICA E GRANDE --- */
+        .foto-unica-container {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .foto-unica-container img {
+            width: 100%;
+            height: auto;
+            max-height: 750px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .card-label-fixo {
+            padding: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--accent);
+        }
+
+        /* --- ABA 2: CARROSSEL AUTOMÁTICO --- */
+        .slideshow-container {
+            position: relative;
+            max-width: 900px;
+            margin: auto;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            background: var(--glass);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .mySlides {
+            display: none;
+            text-align: center;
+        }
+
+        .mySlides img, .mySlides video {
+            width: 100%;
+            height: 750px;
+            object-fit: cover;
+        }
+
+        /* NOME FIXO NO CARROSSEL */
+        .fixed-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 40px 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: white;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            z-index: 5;
+        }
+
+        /* --- MENSAGEM RESTAURADA --- */
+        .message-container {
+            max-width: 750px;
+            margin: 50px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 50px 30px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .message-text { line-height: 1.8; color: #ccc; font-size: 1.1rem; }
+        .message-text strong { color: white; font-family: 'Playfair Display', serif; font-size: 1.6rem; display: block; margin-bottom: 15px; }
+        
+        .signature {
+            margin-top: 30px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+
+        .heart { position: fixed; pointer-events: none; animation: floatUp linear forwards; z-index: 0; }
+        @keyframes floatUp { from { transform: translateY(100vh); opacity: 1; } to { transform: translateY(-10vh); opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mãe Adriana ✨</h1>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('fotos')">Nossa Família</button>
+        <button class="tab-btn" onclick="openTab('momentos')">Momentos Mágicos</button>
+    </div>
+
+    <div id="fotos" class="content-section active">
+        <div class="foto-unica-container">
+            <img src="todos.jpg" alt="Foto da Família">
+            <div class="card-label-fixo">O Amor de uma Vida Inteira</div>
+        </div>
+    </div>
+
+    <div id="momentos" class="content-section">
+        <div class="slideshow-container">
+            <div class="fixed-label">Momentos Especiais</div>
+
+            <div class="mySlides">
+                <img src="matheus.jpg">
+            </div>
+            <div class="mySlides">
+                <img src="matheus (2).jpg">
+            </div>
+            <div class="mySlides">
+                <img src="matheus (3).jpg">
+            </div>
+            <div class="mySlides">
+                <img src="matheus (4).jpg">
+            </div>
+            <div class="mySlides">
+                <video id="vid1" muted loop>
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-container">
+        <div class="message-text">
+            <strong>Oi, Mãe Adriana,</strong>
+            Criamos este cantinho mágico para celebrar a mulher maravilhosa que você é. 
+            Você é o nosso alicerce, a nossa luz e a pessoa que nos ensinou o verdadeiro significado de força e amor. 
+            <br><br>
+            Não importa quanto tempo passe, seus abraços sempre serão nosso lugar favorito no mundo. 
+            Obrigado por lutar por nós e por nos amar de um jeito tão único.
+            <br><br>
+            Que seu dia seja tão especial e brilhante quanto o seu sorriso. 
+            Nós te amamos daqui até o infinito!
+        </div>
+        <div class="signature">João, Yasmin, Matheus, Jorge e Igor ❤️</div>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            if(tabName === 'momentos') {
+                startSlideshow();
+            } else {
+                clearTimeout(slideTimeout);
+                document.querySelectorAll('video').forEach(v => v.pause());
+            }
+        }
+
+        let slideIndex = 0;
+        let slideTimeout;
+
+        function startSlideshow() {
+            clearTimeout(slideTimeout);
+            let slides = document.getElementsByClassName("mySlides");
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+                let vid = slides[i].querySelector('video');
+                if(vid) vid.pause();
+            }
+
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            
+            slides[slideIndex-1].style.display = "block";  
+            
+            let currentVid = slides[slideIndex-1].querySelector('video');
+            let duration = 3000; 
+
+            if(currentVid) {
+                currentVid.play();
+                duration = 8000;
+            }
+
+            slideTimeout = setTimeout(startSlideshow, duration); 
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 400);
+        startSlideshow();
+    </script>
+</body>
+</html>
